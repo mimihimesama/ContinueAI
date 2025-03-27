@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+message MapChunkRequest {
+  string playerId = 1;
+  int32 chunkX = 2;
+  int32 chunkZ = 3;
+}
+
+message MapTile {
+  int32 tileType = 1;
+  float posX = 2;
+  float posZ = 3;
+
+  // 새로 추가: 타일 상대좌표(예: -1..1)
+  int32 tileX = 4;
+  int32 tileZ = 5;
+}
+
+message MapChunkData {
+  int32 chunkX = 1;
+  int32 chunkZ = 2;
+  repeated MapTile tiles = 3;
+}
