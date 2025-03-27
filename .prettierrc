@@ -1,0 +1,17 @@
+{
+  "semi": true,
+  "arrowParens": "always",
+  "printWidth": 100,
+  "trailingComma": "all",
+  "bracketSpacing": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "overrides": [
+    {
+      "files": "*.json",
+      "options": {
+        "printWidth": 1000
+      }
+    }
+  ]
+}
