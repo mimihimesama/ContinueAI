@@ -1,0 +1,13 @@
+# 기본 패키지
+python-dotenv==1.0.0
+typing-extensions==4.7.1
+
+# 데이터베이스
+aiomysql==0.2.0
+redis==5.0.1
+
+# 프로토콜 버퍼
+protobuf==4.24.4
+
+# 비동기 처리
+asyncio==3.4.3 
