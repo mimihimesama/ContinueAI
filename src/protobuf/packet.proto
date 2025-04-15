@@ -2,115 +2,63 @@ syntax = 'proto3';
 
 package Google.Protobuf.Protocol;
 
+enum PacketId {
+  UNDEFINED_PACKET = 0;
+  PING = 1;
+  REQUEST = 2;
+  RESPONSE = 3;
+}
+
 enum MsgId {
-  C_ENTER = 0;
-  S_ENTER = 1;
-  S_SPAWN = 2;
-  S_DESPAWN = 5;
-  C_MOVE = 6;
-  S_MOVE = 7;
-  C_ANIMATION = 8;
-  S_ANIMATION = 9;
+  UNDEFINED_PAYLOAD = 0;
+  C_LOG = 1;
+  S_RESULT = 2;
 }
 
-// 응답 패킷 - S_Enter, S_Spawn
-message C_Enter{
-  string nickname = 1;
-  int32 class = 2;
+message C_Log {
+  PlayerData player = 1;
 }
 
-// MINE
-message S_Enter {
-  PlayerInfo player = 1;
+message PlayerData {
+	string playerId = 1;
+  float	exp = 2;
+  int32 level = 3;
+  float	posX = 4;
+  float	posY = 5;
+  float	posZ = 6; 
+  float	currentHp = 7;
+  float	maxHp = 8;
+  float	healSpeed = 9;
+  float	atkPower = 10;
+  float	atkSpeed = 11;
+  float	moveSpeed = 12;
+  float	maxSpeed = 13;
+  float	criticalChance = 14;
+  float	criticalMultiplier = 15;
+  float	defensivePower = 16;
+  float	cooldown = 17;
+  float	magnet = 18;
+  int32	hitCount = 19;
+  float	totalDamageTaken = 20;
+  float	totalDamage = 21;
+  int32	numMonsters = 22;
+  int32	nearMonsters = 23;
+  int32	killMonsters = 24;
+  float	kpm = 25;
+  int32	numEquipments = 26;
+  int32	numOrnaments = 27;
+  int32	usedHPitems = 28;
+  int32	deletedItems = 29;
+	repeated EquipmentSlot equipmentSlot = 30;
+	repeated OrnamentSlot ornamentSlot = 31;
+  float	score = 32;
+  float	survivalTime = 33;
 }
 
-// OTHERS
-message S_Spawn {
-  repeated PlayerInfo players = 1;
+message EquipmentSlot {
+	int32 equipment = 1;
 }
 
-// 접속상태를 서버에서 판단해서 끊기도 다른 플레이어들 정보 전달
-// 응답 패킷 - S_Leave, S_Despawn
-message S_Despawn {
-  repeated int32 playerIds = 2; // PlayerInfo 전부 말고 아이디만 받는다.
+message OrnamentSlot {
+	int32 ornament = 1;
 }
-
-
-// 응답 패킷 - S_Move
-message C_Move {
-  TransformInfo transform = 1;
-}
-
-// ALL
-message S_Move {
-  int32 playerId = 1;
-  TransformInfo transform = 2;
-}
-
-// 응답 패킷 - S_Animation
-message C_Animation {
-  int32 animCode = 1;
-}
-
-// ALL
-message S_Animation {
-  int32 playerId = 1;
-  int32 animCode = 2;
-}
-
-
-// ---------------------------- 정보 구조체 ----------------------------
-message PlayerInfo {
-  int32 playerId = 1;   // 입장할때 서버 내부에서 생성한 관리코드
-  string nickname = 2;  // C_EnterGame 에서 지정한 이름
-  int32 class = 3;      // C_EnterGame 에서 지정한 직업 정보, 이 정보를 통해 캐릭터가 결정
-  TransformInfo transform = 4;
-  StatInfo statInfo = 5;
-}
-
-// C_Enter 를 통해 입장했을때는 서버에서 랜덤으로 위치값 생성 / 기본값은 하단 밸류 참조
-// C_Move 를 통해 전달된 데이터는 그대로 다른 사용자에게 릴레이
-message TransformInfo {
-  float posX = 1; // 기본값 : -9 ~ 9
-  float posY = 2; // 기본값 : 1
-  float posZ = 3; // 기본값 : -8 ~ 8
-  float rot = 4; // 기본값 : 0~360
-}
-
-message StatInfo {
-  int32 level = 1;
-  float hp = 2;
-  float maxHp = 3;
-  float mp = 4;
-  float maxMp = 5;
-  float atk = 6;
-  float def = 7;
-  float speed = 8; 
-}
-
-// message DungeonInfo {
-//   int32 dungeonCode = 1;
-//   repeated MonsterStatus monsters = 2;
-// }
-
-// message MonsterStatus {
-//   int32 monsterIdx = 1;
-//   int32 monsterModel = 2;
-//   string monsterName = 3;
-//   float monsterHp = 4;
-// }
-
-// message ActionSet {
-//   int32 animCode = 1;
-//   int32 effectCode = 2;
-// }
-
-// message PlayerStatus {
-//   int32 playerClass = 1;
-//   int32 playerLevel = 2;
-//   string playerName = 3;
-//   float playerFullHp = 4;
-//   float playerFullMp = 5;
-//   float playerCurHp = 6;
-//   float playerCurMp = 7;
-// }

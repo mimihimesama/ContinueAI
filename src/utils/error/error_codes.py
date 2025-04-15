@@ -1,0 +1,14 @@
+# 에러 코드 상수 정의
+ErrorCodes = {
+    'SOCKET_ERROR': 10000,
+    'UNKNOWN_HANDLER_ID': 10001,
+    'PACKET_DECODE_ERROR': 10002,
+    'PACKET_STRUCTURE_MISMATCH': 10003,
+    'MISSING_FIELDS': 10004,
+    'USER_NOT_FOUND': 10005,
+    'INVALID_PACKET': 10006,
+} 
+
+SuccessCode = {
+'Success': 0,
+};
