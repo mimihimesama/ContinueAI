@@ -1,4 +1,5 @@
 import json
+from google.protobuf.json_format import MessageToDict
 from ..constants.packet_constants import packet_types, payload_key_names
 from ..init.proto_init import get_proto_messages
 from .error.custom_error import CustomError
@@ -36,7 +37,7 @@ def serialize(message_type, data):
             return message_type.encode(created).finish()
     except Exception as msg:
         error_message = f"직렬화 검증 실패: {msg}\r\nfailed data: {json.dumps(data, indent=2)}\r\n"
-        raise CustomError(ErrorCodes.INVALID_PACKET, error_message)
+        raise CustomError(ErrorCodes['INVALID_PACKET'], error_message)
 
 def serialize_ex(packet_type, payload_type, data):
     """
@@ -50,7 +51,8 @@ def serialize_ex(packet_type, payload_type, data):
     Returns:
         bytes: 직렬화된 데이터
     """
-    message_type = get_proto_messages()['packet'][packet_type]
+    packet_type_name = next(k for k, v in packet_types.items() if v == packet_type)
+    message_type = get_proto_messages()['packet'][packet_type_name]
     data[payload_key_names[payload_type]] = data['payload']
     data['payload'] = None
     return serialize(message_type, data)
@@ -80,10 +82,8 @@ def deserialize(message_type, data):
     # 더미 메시지 클래스를 사용하는 경우
     if hasattr(message_type, 'ParseFromString'):
         message = message_type()
-        message.ParseFromString(data)
-        result = message.__dict__
-        print(f"ParseFromString 역직렬화 완료: {json.dumps(result, indent=2, ensure_ascii=False)}")
-        return result
+        message.ParseFromString(data) 
+        return message
     else:
         # 기존 코드
         result = message_type.decode(data)
@@ -99,12 +99,12 @@ def deserialize_by_packet_type(packet_type, data):
         data: 역직렬화할 데이터
         
     Returns:
-        dict: 역직렬화된 데이터
+        protobuf.Message: 역직렬화된 메시지 객체 (dict 아님, 필요 시 MessageToDict로 변환)
     """
     print(f"패킷 타입에 따른 역직렬화 시작: 패킷 타입={packet_type}")
     
     # 패킷 타입 이름 찾기
-    packet_type_name = "UNKNOWN"
+    packet_type_name = None
     for name, value in packet_types.items():
         if value == packet_type:
             packet_type_name = name
@@ -112,10 +112,10 @@ def deserialize_by_packet_type(packet_type, data):
     
     print(f"패킷 타입 이름: {packet_type_name}")
     
-    message_type = get_proto_messages()['packet'][packet_type]
+    message_type = get_proto_messages()['packet'][packet_type_name]
     print(f"메시지 타입: {message_type.__name__ if hasattr(message_type, '__name__') else str(message_type)}")
     
     decoded = deserialize(message_type, data)
-    print(f"패킷 타입에 따른 역직렬화 완료: {json.dumps(decoded, indent=2, ensure_ascii=False)}")
+    print(f"패킷 타입에 따른 역직렬화 완료: {json.dumps(MessageToDict(decoded), indent=2, ensure_ascii=False)}")
     
     return decoded 
