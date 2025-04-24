@@ -5,14 +5,25 @@ package Google.Protobuf.Protocol;
 enum PacketId {
   UNDEFINED_PACKET = 0;
   PING = 1;
-  REQUEST = 2;
-  RESPONSE = 3;
+  PONG = 2;  
+  REQUEST = 3;
+  RESPONSE = 4;
 }
 
 enum MsgId {
   UNDEFINED_PAYLOAD = 0;
-  C_LOG = 1;
-  S_RESULT = 2;
+  C_ENTER = 1;
+  S_ENTER = 2;
+  C_LOG = 3;
+  S_RESULT = 4;
+}
+
+message C_Enter{
+  
+}
+
+message S_Enter {
+  PlayerData player = 1;
 }
 
 message C_Log {
@@ -21,23 +32,26 @@ message C_Log {
 
 message PlayerData {
 	string playerId = 1;
-  float	exp = 2;
-  int32 level = 3;
+  int32 level = 2;
+  float	exp = 3;
+  
   float	posX = 4;
   float	posY = 5;
   float	posZ = 6; 
-  float	currentHp = 7;
-  float	maxHp = 8;
-  float	healSpeed = 9;
-  float	atkPower = 10;
-  float	atkSpeed = 11;
-  float	moveSpeed = 12;
+  float	moveSpeed = 7;
+
+  float	currentHp = 8;
+  float	maxHp = 9;
+  float	healSpeed = 10;
+  float	atkPower = 11;
+  float	atkSpeed = 12;
   float	maxSpeed = 13;
   float	criticalChance = 14;
   float	criticalMultiplier = 15;
   float	defensivePower = 16;
   float	cooldown = 17;
   float	magnet = 18;
+
   int32	hitCount = 19;
   float	totalDamageTaken = 20;
   float	totalDamage = 21;
@@ -45,14 +59,21 @@ message PlayerData {
   int32	nearMonsters = 23;
   int32	killMonsters = 24;
   float	kpm = 25;
-  int32	numEquipments = 26;
-  int32	numOrnaments = 27;
-  int32	usedHPitems = 28;
-  int32	deletedItems = 29;
+
+  int32	usedHPitems = 26;
+  int32	deletedItems = 27;
+  int32	numEquipments = 28;
+  int32	numOrnaments = 29;
 	repeated EquipmentSlot equipmentSlot = 30;
 	repeated OrnamentSlot ornamentSlot = 31;
+
   float	score = 32;
   float	survivalTime = 33;
+
+  int32 soulCont = 34;
+  int32 keyCount = 35;
+
+  bool IsAlive = 36;
 }
 
 message EquipmentSlot {
@@ -61,4 +82,36 @@ message EquipmentSlot {
 
 message OrnamentSlot {
 	int32 ornament = 1;
+}
+
+message S_Result {
+
+}
+
+message PingPacket {
+  uint64 timestamp = 1;
+}
+
+message PongPacket {
+  uint64 timestamp = 1;
+  uint64 serverTimestamp = 2;  // 서버가 받은 시간
+}
+
+message RequestPacket {
+  uint32 payloadType = 1;
+  oneof payload {
+    C_Enter cEnter = 2;
+    C_Log cLog = 3;
+  }
+}
+
+message ResponsePacket {
+  uint32 code = 1;
+  string message = 2;
+  uint64 timestamp = 3;
+  uint32 payloadType = 4;
+  oneof payload {
+    S_Enter sEnter = 5;
+    S_Result sResult = 6;
+  }
 }
