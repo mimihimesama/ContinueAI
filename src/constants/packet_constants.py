@@ -1,7 +1,7 @@
 from ..utils.transform_case import string_to_camel_case, string_to_pascal_case
 
 # 프로토콜 관련 상수
-PROTOCOL_PREFIX = 'Google.Protobuf.Protocol.'
+PROTOCOL_PREFIX = 'src.protobuf.packet_pb2.'
 PACKET_SUFFIX = 'Packet'
 
 # 헤더 관련 상수
@@ -13,8 +13,9 @@ header_constants = {
 # 패킷 타입 정의
 packet_types = {
     'PING': 1,
-    'REQUEST': 2,
-    'RESPONSE': 3,
+    'PONG': 2,
+    'REQUEST': 3,
+    'RESPONSE': 4,
 }
 
 # 페이로드 타입 정의
@@ -27,8 +28,8 @@ payload_types = {
 
 # 패킷 이름 매핑
 packet_names = {
-    value: PROTOCOL_PREFIX + string_to_pascal_case(key) + PACKET_SUFFIX
-    for key, value in packet_types.items()
+    key: PROTOCOL_PREFIX + string_to_pascal_case(key) + PACKET_SUFFIX
+    for key in packet_types.keys()
 }
 
 # 페이로드 이름 매핑
