@@ -21,27 +21,35 @@ class ClientSocketWrapper:
         self.socket.close()
 
 async def on_connection(socket, address):
+    print(f"\n{'='*50}")
     print(f'클라이언트가 연결되었습니다: {address[0]}, {address[1]}')
+    print(f"{'='*50}\n")
     
     # 클라이언트 소켓 래퍼 생성
     client = ClientSocketWrapper(socket, address)
     
     try:
+        # 데이터 처리 핸들러 준비
+        handler = await on_data(client)
+        
         while True:
             try:
                 # 데이터 수신
-                data = await asyncio.get_event_loop().sock_recv(socket, 1024)
+                data = await asyncio.get_event_loop().sock_recv(client.socket, 1024)
                 if not data:
+                    print(f"클라이언트 연결 종료: {address}")
                     break
-                    
-                # 버퍼에 데이터 추가
-                client.buffer.extend(data)
+                
+                print(f"\n{'='*50}")
+                print(f"데이터 수신: {address}")
+                print(f"Raw data: {data.hex()}")
+                print(f"Length: {len(data)} bytes")
                 
                 # 데이터 처리
-                await on_data(client)
+                await handler(data)
                 
             except Exception as e:
-                # 에러 처리
+                print(f"데이터 처리 중 오류 발생: {e}")
                 await on_error(client, e)
                 break
                 
@@ -50,4 +58,5 @@ async def on_connection(socket, address):
     finally:
         # 연결 종료 처리
         await on_end(client)
-        client.close() 
+        client.close()
+        print(f"소켓 닫힘: {address}")

@@ -31,6 +31,7 @@ async def main():
                     print(f"새로운 연결: {address}")
                     
                     # 클라이언트 연결 처리
+                    client_socket.setblocking(False)
                     asyncio.create_task(on_connection(client_socket, address))
                     
                 except Exception as e:
