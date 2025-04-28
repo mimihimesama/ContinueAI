@@ -8,11 +8,13 @@ def add_user(socket, account_id):
     user = get_user_by_id(account_id)
     user = User(account_id, socket)
     user_session[account_id] = user
-    user_socket_session[socket] = user
+    # 소켓 객체의 ID를 키로 사용
+    user_socket_session[id(socket)] = user
     return user
 
 def get_user_by_id(account_id):
     return user_session.get(account_id)
 
 def get_user_by_socket(socket):
-    return user_socket_session.get(socket)
+    # 소켓 객체의 ID로 사용자 조회
+    return user_socket_session.get(id(socket))

@@ -17,6 +17,14 @@ class ClientSocketWrapper:
     def send_response(self, data):
         return send_response(self.socket, data)
     
+    async def send(self, data):
+        try:
+            # Windows에서는 일반 send를 사용
+            self.socket.send(data)
+        except Exception as e:
+            print(f"소켓 전송 오류: {e}")
+            raise
+    
     def close(self):
         self.socket.close()
 
