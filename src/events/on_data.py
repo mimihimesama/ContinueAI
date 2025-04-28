@@ -37,7 +37,7 @@ async def on_data(socket):
 
                 if packet_type == packet_types['PING']:
                     print(f"[PING] 패킷 수신됨!")
-
+                    
                     decoded = deserialize_by_packet_type(packet_types['PING'], packet)
                     print(f"[PING] 디코딩된 데이터: {decoded}")
                     
@@ -47,8 +47,8 @@ async def on_data(socket):
 
                 elif packet_type == packet_types['REQUEST']:
                     result = deserialize_by_packet_type(packet_type, packet)
-                    payload_type = result.get('payloadType')
-                    payload = result.get('payload')
+                    payload_type = result.payloadType
+                    payload = getattr(result, result.WhichOneof("payload"))
                     handler = get_handler_by_payload_type(payload_type or 0)
                     await handler({
                         'socket': socket,
