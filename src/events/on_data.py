@@ -37,11 +37,12 @@ async def on_data(socket):
 
                 if packet_type == packet_types['PING']:
                     print(f"[PING] 패킷 수신됨!")
+                    socket.last_ping_time = asyncio.get_event_loop().time()
                     
                     decoded = deserialize_by_packet_type(packet_types['PING'], packet)
                     print(f"[PING] 디코딩된 데이터: {decoded}")
                     
-                    # PONG 응답 전송 (유저 체크 없이)
+                    # PONG 응답 전송
                     await send_ping(socket.socket, decoded.timestamp)
                     print("[PONG] 응답 전송 완료")
 
