@@ -5,12 +5,36 @@ from ..session.user_session import add_user
 from ..utils.error.error_codes import SuccessCode
 from ..utils.error.error_handler import handle_error
 from ..utils.packet_sender import send_response
+from ..utils.redis.redis import UserRedis, GameRedis
 
 async def auto_login_handler(socket):
     try:
-        account_id = str(uuid.uuid4())  # UUID 생성
-        user = add_user(socket, account_id)  # User 객체 생성 및 세션에 저장
+        # socket이 딕셔너리인 경우 실제 소켓 객체를 가져옴
+        if isinstance(socket, dict):
+            real_socket = socket.get('socket')
+            if real_socket is None:
+                raise Exception("Real socket not found")
+            account_id = real_socket.session_id
+        else:
+            account_id = socket.session_id
+            
+        # 유저 세션에 추가
+        user = add_user(socket, account_id)
         print(f"자동 로그인: {account_id}")
+
+        # 유저 레디스 데이터 생성
+        await UserRedis.create_user_data(account_id)
+        
+        # 게임 레디스 데이터 생성 (레벨 1로 시작)
+        await GameRedis.create_game_data(account_id, 1)
+
+        # 레디스 데이터 확인
+        user_data = await UserRedis.get_user_data(account_id)
+        game_data = await GameRedis.get_game_data(account_id)
+        print(f"\n{'='*50}")
+        print(f"유저 레디스 데이터: {user_data}")
+        print(f"게임 레디스 데이터: {game_data}")
+        print(f"{'='*50}\n")
 
         # PlayerData 생성 (테스트 용도 무작위값)
         player_data = {
