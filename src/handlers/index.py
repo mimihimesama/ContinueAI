@@ -2,10 +2,12 @@ from ..constants.packet_constants import payload_types
 from ..utils.error.custom_error import CustomError
 from ..utils.error.error_codes import ErrorCodes
 from .auto_login_handler import auto_login_handler
+from .game_log_handler import game_log_handler
 
 # 패킷 타입에 따른 핸들러 매핑
 handlers = {
     payload_types['C_ENTER']: auto_login_handler,
+    payload_types['C_LOG']: game_log_handler,
 }
 
 def get_handler_by_payload_type(payload_types):

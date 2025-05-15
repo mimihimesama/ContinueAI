@@ -1,5 +1,6 @@
 import json
 from typing import Dict, Any, List, Optional
+from datetime import datetime
 from ...init.redis_init import redis_client
 from ...constants.redis_constants import (
     user_redis_fields as urf,
@@ -238,6 +239,40 @@ class GameRedis:
                 redis_client.delete(key)
         except Exception as error:
             print('removeGameData Error Message : ', error)
+
+    @staticmethod
+    async def push_game_log(account_id: str, log_data: Dict[str, Any]) -> None:
+        """
+        게임 로그 데이터를 저장하는 함수
+        
+        Args:
+            uuid (str): 사용자 UUID
+        """
+        try:
+            key = f"logs:{account_id}"
+            log_entry = {
+                "timestamp": datetime.utcnow().isoformat(),
+                **log_data
+            }
+            await redis_client.rpush(key, json.dumps(log_entry))
+            await redis_client.ltrim(key, -60, -1)  # 최근 60개만 유지 (1분치)
+        except Exception as e:
+            print(f"GameLogRedis.push_game_log 에러: {e}")
+
+    @staticmethod
+    async def get_recent_logs(account_id: str, count: int = 60) -> List[Dict[str, Any]]:
+        """
+        게임 로그 데이터를 가져오는 함수
+        
+        Args:
+            uuid (str): 사용자 UUID
+        """
+        try:
+            key = f"logs:{account_id}"
+            logs = await redis_client.lrange(key, -count, -1)
+            return [json.loads(log) for log in logs]
+        except Exception as e:
+            print(f"GameLogRedis.get_recent_logs 에러: {e}")
 
 # 클래스 인스턴스 생성
 user_redis = UserRedis()
