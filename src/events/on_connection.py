@@ -21,10 +21,10 @@ class ClientSocketWrapper:
     def send_response(self, data):
         return send_response(self.socket, data)
     
-    def send(self, data):
+    async def send(self, data):
         try:
-            # Windows에서는 일반 send를 사용
-            self.socket.send(data)
+            # Windows에서는 비동기 send를 사용
+            await asyncio.get_event_loop().sock_sendall(self.socket, data)
         except Exception as e:
             print(f"소켓 전송 오류: {e}")
             raise
@@ -41,7 +41,7 @@ async def check_ping_timeout(client):
     """PING 타임아웃을 체크하는 함수"""
     while client.is_connected:
         current_time = asyncio.get_event_loop().time()
-        if current_time - client.last_ping_time > 3.0:  # 3초 이상 PING이 없으면 연결 종료
+        if current_time - client.last_ping_time > 5.0:  # 5초 이상 PING이 없으면 연결 종료
             print(f"\n{'='*50}")
             print(f"PING 타임아웃: {client.address} (Session ID: {client.session_id})")
             print(f"마지막 PING 수신: {current_time - client.last_ping_time:.1f}초 전")
@@ -74,11 +74,6 @@ async def on_connection(socket, address):
                     print(f"클라이언트 연결 종료: {address}")
                     break
                 
-                print(f"\n{'='*50}")
-                print(f"데이터 수신: {address}")
-                print(f"Raw data: {data.hex()}")
-                print(f"Length: {len(data)} bytes")
-                
                 # 데이터 처리
                 await handler(data)
                 
@@ -95,7 +90,6 @@ async def on_connection(socket, address):
     except Exception as e:
         print(f"연결 처리 중 오류 발생: {e}")
     finally:
-        print(">> finally 블록 진입")
         # PING 체크 태스크 취소
         if 'ping_check_task' in locals():
             try:
