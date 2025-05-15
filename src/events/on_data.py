@@ -16,24 +16,16 @@ async def on_data(socket):
         try:
             socket.buffer.extend(data)
 
-            print(f"버퍼 길이: {len(socket.buffer)}")
-            print(f"버퍼 내용: {socket.buffer.hex()}")
-
             while len(socket.buffer) >= header_size:
-                print(f"\n헤더 파싱:")
                 header_info = read_header(socket.buffer)
                 total_length = header_info['totalLength']
                 packet_type = header_info['packetType']
-                print(f"Total Length: {total_length}")
-                print(f"Packet Type: {packet_type}")
 
                 if total_length > len(socket.buffer):
                     break
 
                 packet = socket.buffer[header_size:total_length]
                 socket.buffer = socket.buffer[total_length:]
-
-                print(f"패킷 내용: {packet.hex()}")
 
                 if packet_type == packet_types['PING']:
                     print(f"[PING] 패킷 수신됨!")
@@ -44,7 +36,6 @@ async def on_data(socket):
                     
                     # PONG 응답 전송
                     await send_ping(socket.socket, decoded.timestamp)
-                    print("[PONG] 응답 전송 완료")
 
                 elif packet_type == packet_types['REQUEST']:
                     result = deserialize_by_packet_type(packet_type, packet)
@@ -53,7 +44,7 @@ async def on_data(socket):
                     handler = get_handler_by_payload_type(payload_type or 0)
                     await handler({
                         'socket': socket,
-                        'accountId': getattr(socket, 'accountId', None),
+                        'accountId': socket.session_id,
                         'packet': payload
                     })
 
