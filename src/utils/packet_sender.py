@@ -50,10 +50,8 @@ async def send_ping(socket, timestamp=None, dont_send=False):
             'serverTimestamp': int(time.time() * 1000)
         }
 
-        print(f"\n{'='*50}")
+        print(f"{'='*50}")
         print(f"[PONG] 응답 전송!")
-        print(f"[PONG] Timestamp: {timestamp}")
-        print(f"{'='*50}\n")
         
         serialized = serialize(PingPacketClass, packet_data)
         header = write_header(len(serialized), packet_types['PONG'])
@@ -65,6 +63,7 @@ async def send_ping(socket, timestamp=None, dont_send=False):
         await send_packet(socket, packet)
 
         print(f"[send_ping] 완료 - timestamp: {timestamp}")
+        print(f"{'='*50}\n")
             
     except Exception as err:
         await handle_error(socket, err)
@@ -86,14 +85,12 @@ async def send_response(socket, code, message, type, payload=None):
             if field_name:
                 packet_data[field_name] = payload
         
-        print(f"\n{'='*50}")
         print(f"[RESPONSE] 전송 시작")
         print(f"Code: {code}")
         print(f"Message: {message}")
         print(f"Payload Type: {type}")
         print(f"Packet Type: {packet_types['RESPONSE']}")  # 항상 RESPONSE(4)를 사용
         print(f"Payload: {payload}")
-        print(f"{'='*50}\n")
         
         # 패킷 직렬화 (패킷 타입은 항상 RESPONSE(4)를 사용)
         serialized_packet = serialize_ex(packet_types['RESPONSE'], type, packet_data)
@@ -102,11 +99,8 @@ async def send_response(socket, code, message, type, payload=None):
         
         await send_packet(socket, packet)
         
-        print(f"\n{'='*50}")
-        print(f"[RESPONSE] 전송 완료")
-        print(f"전송된 데이터 길이: {len(packet)} bytes")
-        print(f"전송된 데이터: {packet.hex()}")
-        print(f"{'='*50}\n")
+        print(f"\n[RESPONSE] 전송 완료")
+        print(f"\n{'='*50}\n")
         
     except Exception as error:
         print(f"\n{'='*50}")

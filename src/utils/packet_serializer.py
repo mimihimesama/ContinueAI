@@ -96,8 +96,6 @@ def deserialize(message_type, data):
             f"역직렬화 에러: empty messageType ({message_type})"
         )
     
-    print(f"역직렬화 시작: 메시지 타입={message_type.__name__ if hasattr(message_type, '__name__') else str(message_type)}")
-    
     # 더미 메시지 클래스를 사용하는 경우
     if hasattr(message_type, 'ParseFromString'):
         message = message_type()
@@ -120,8 +118,6 @@ def deserialize_by_packet_type(packet_type, data):
     Returns:
         protobuf.Message: 역직렬화된 메시지 객체 (dict 아님, 필요 시 MessageToDict로 변환)
     """
-    print(f"패킷 타입에 따른 역직렬화 시작: 패킷 타입={packet_type}")
-    
     # 패킷 타입 이름 찾기
     packet_type_name = None
     for name, value in packet_types.items():
@@ -135,6 +131,5 @@ def deserialize_by_packet_type(packet_type, data):
     print(f"메시지 타입: {message_type.__name__ if hasattr(message_type, '__name__') else str(message_type)}")
     
     decoded = deserialize(message_type, data)
-    print(f"패킷 타입에 따른 역직렬화 완료: {json.dumps(MessageToDict(decoded), indent=2, ensure_ascii=False)}")
     
     return decoded 
