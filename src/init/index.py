@@ -11,10 +11,10 @@ async def init_server() -> None:
     """
     try:
         # 데이터베이스 풀 초기화
-        await init_pools()
+        # await init_pools()
         
         await load_proto_files()
-        await test_all_db_connections(pools)
+        # await test_all_db_connections(pools)
         await test_redis_connection()
     except Exception as e:
         print(e)

@@ -41,7 +41,7 @@ async def main():
             # 서버 종료 시 정리
             server.close()
             # 데이터베이스 풀 정리
-            await close_pools()
+            # await close_pools()
                 
     except Exception as error:
         print(f"서버 오류: {error}")
