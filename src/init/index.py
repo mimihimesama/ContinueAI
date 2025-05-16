@@ -2,8 +2,8 @@ import sys
 import asyncio
 from ..db.database import pools, init_pools
 from ..utils.db.test_connection import test_all_db_connections
-from ..utils.redis.test_connection import test_all_redis_connections
 from .proto_init import load_proto_files
+from .redis_init import test_redis_connection
 
 async def init_server() -> None:
     """
@@ -15,7 +15,7 @@ async def init_server() -> None:
         
         await load_proto_files()
         await test_all_db_connections(pools)
-        await test_all_redis_connections()
+        await test_redis_connection()
     except Exception as e:
         print(e)
         sys.exit(1)  # 오류 발생 시 프로세스 종료

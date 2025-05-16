@@ -25,6 +25,6 @@ DB2_PORT = int(os.getenv('DB2_PORT', 3306))
 
 # Redis 설정
 REDIS_HOST = os.getenv('REDIS_HOST', 'localhost')
-REDIS_PORT = int(os.getenv('REDIS_PORT', 6379))
+REDIS_PORT = int(os.getenv('REDIS_PORT', 6380))
 REDIS_USERNAME = os.getenv('REDIS_USERNAME', '')
 REDIS_PASSWORD = os.getenv('REDIS_PASSWORD', '') 

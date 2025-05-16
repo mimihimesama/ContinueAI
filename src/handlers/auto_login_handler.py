@@ -5,7 +5,6 @@ from ..session.user_session import add_user
 from ..utils.error.error_codes import SuccessCode
 from ..utils.error.error_handler import handle_error
 from ..utils.packet_sender import send_response
-from ..utils.redis.redis import UserRedis, GameRedis
 
 async def auto_login_handler(socket):
     try:
@@ -22,21 +21,7 @@ async def auto_login_handler(socket):
         user = add_user(socket, account_id)
         print(f"자동 로그인: {account_id}")
 
-        # 유저 레디스 데이터 생성
-        await UserRedis.create_user_data(account_id)
-        
-        # 게임 레디스 데이터 생성 (레벨 1로 시작)
-        await GameRedis.create_game_data(account_id, 1)
-
-        # 레디스 데이터 확인
-        user_data = await UserRedis.get_user_data(account_id)
-        game_data = await GameRedis.get_game_data(account_id)
-        print(f"\n{'='*50}")
-        print(f"유저 레디스 데이터: {user_data}")
-        print(f"게임 레디스 데이터: {game_data}")
-        print(f"{'='*50}\n")
-
-        # PlayerData 초기값 생성 (수정 부탁드립니다)
+        # PlayerData 초기값 생성
         player_data = {
             'playerId': account_id,
             'level': 1,
@@ -74,7 +59,6 @@ async def auto_login_handler(socket):
             'soulCont': 0,
             'keyCount': 0,
             'IsAlive': True
-            # _lastPeriodicHealTime와 MAX_LEVEL 추가? -> packet.proto 파일 변경 필요
         }
 
         payload = {
