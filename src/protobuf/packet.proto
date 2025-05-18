@@ -16,6 +16,8 @@ enum MsgId {
   S_ENTER = 2;
   C_LOG = 3;
   S_RESULT = 4;
+  C_QUEST_REQUEST = 5;
+  S_QUEST_RESPONSE = 6;
 }
 
 message C_Enter{
@@ -102,6 +104,7 @@ message RequestPacket {
   oneof payload {
     C_Enter cEnter = 2;
     C_Log cLog = 3;
+    C_QuestRequest cQuestRequest = 4;
   }
 }
 
@@ -113,5 +116,14 @@ message ResponsePacket {
   oneof payload {
     S_Enter sEnter = 5;
     S_Result sResult = 6;
+    S_QuestResponse sQuestResponse = 7;
   }
+}
+
+message C_QuestRequest {
+  PlayerData player = 1;
+}
+
+message S_QuestResponse {
+  string questText = 1;
 }
