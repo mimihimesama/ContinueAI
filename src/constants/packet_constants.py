@@ -24,6 +24,8 @@ payload_types = {
     'S_ENTER': 2,
     'C_LOG': 3,
     'S_RESULT': 4,
+    'C_QUEST_REQUEST' :5,   # 추가
+    'S_QUEST_RESPONSE': 6,  # 추가 
 }
 
 # 패킷 이름 매핑
