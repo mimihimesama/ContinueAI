@@ -95,11 +95,10 @@ def deserialize(message_type, data):
             ErrorCodes.INVALID_PACKET,
             f"역직렬화 에러: empty messageType ({message_type})"
         )
-    
     # 더미 메시지 클래스를 사용하는 경우
     if hasattr(message_type, 'ParseFromString'):
         message = message_type()
-        message.ParseFromString(data) 
+        message.ParseFromString(bytes(data)) 
         return message
     else:
         # 기존 코드
