@@ -87,7 +87,30 @@ message OrnamentSlot {
 }
 
 message S_Result {
+  Supporting support = 1;
+}
 
+message Supporting {
+  float shield_active = 1; 
+  int32 invincibility = 2;
+  bool boss_buff = 3;
+  bool hp_guard = 4;
+  float periodic_heal = 5;
+  float speed_up = 6;
+  float attack_speed_up = 7;
+  float attack_up = 8;
+  int32 defense_up = 9;
+  float cooldown_reduction = 10;
+  float berserk_mode = 11;
+  float crit_boost = 12;
+  float xp_boost = 13;
+  AreaEffect area_slow = 14;
+  AreaEffect area_protect = 15;
+}
+
+message AreaEffect {
+  float range = 1;     // 적용 범위
+  float value = 2;     // 효과 수치
 }
 
 message PingPacket {
