@@ -22,18 +22,6 @@ class GameRedis:
             print(f"GameRedis.push_game_log 에러: {e}")
 
     @staticmethod
-    async def get_recent_class_logs(account_id: str) -> List[Dict[str, Any]]:
-        """
-        Redis에서 최근 로그 7개를 가져옴
-        """
-        try:
-            key = f"logs:{account_id}"
-            logs = await redis_client.lrange(key, -7, -1)
-            return [json.loads(log) for log in logs]
-        except Exception as e:
-            print(f"GameRedis.get_recent_class_logs 에러: {e}")
-
-    @staticmethod
     async def get_filtered_logs(account_id: str, count: int = 60) -> List[Dict[str, Any]]:
         """
         Redis에서 최근 로그를 가져오되, player 필드 내 특정 key만 추출하여 반환
@@ -60,6 +48,15 @@ class GameRedis:
 
         except Exception as e:
             print(f"GameRedis.get_filtered_logs 에러: {e}")
+
+    @staticmethod
+    async def remove_log_data(account_id: str) -> None:
+        try:
+            key = f'logs:{account_id}'
+            await redis_client.delete(key)
+            print(f"{key} 삭제 완료")
+        except Exception as error:
+            print('remove_log_data Error Message : ', error)
 
 # 클래스 인스턴스 생성
 game_redis = GameRedis()
