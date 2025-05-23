@@ -104,13 +104,8 @@ message Supporting {
   float berserk_mode = 11;
   float crit_boost = 12;
   float xp_boost = 13;
-  AreaEffect area_slow = 14;
-  AreaEffect area_protect = 15;
-}
-
-message AreaEffect {
-  float range = 1;     // 적용 범위
-  float value = 2;     // 효과 수치
+  float area_slow = 14;
+  float area_protect = 15;
 }
 
 message PingPacket {

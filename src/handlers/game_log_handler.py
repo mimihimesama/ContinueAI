@@ -8,19 +8,11 @@ from google.protobuf.json_format import MessageToDict
 def build_support_payload(ai_result: dict) -> dict:
     """
     AI 결과에서 의미 있는 support 효과만 추출하여 payload 형식으로 구성
+    (area_slow, area_protect도 단순 float로 처리)
     """
     support_payload = {}
 
     for key, value in ai_result.items():
-        # area_* 계열 (dict 타입 필수)
-        if key.startswith("area_") and isinstance(value, dict):
-            if "range" in value and "value" in value:
-                support_payload[key] = {
-                    "range": value["range"],
-                    "value": value["value"]
-                }
-            continue
-
         if value is None:
             continue
 
@@ -51,7 +43,7 @@ async def game_log_handler(context):
         ai_result = {
             "shield_active": 1.0,
             "speed_up": 2.5,
-            "area_slow": {"range": 5.0, "value": 0.3},
+            "area_slow": 0.7,
             "crit_boost": None,
             "cooldown_reduction": 0
         }
