@@ -6,9 +6,17 @@
 """Generated protocol buffer code."""
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import descriptor_pool as _descriptor_pool
-
+from google.protobuf import runtime_version as _runtime_version
 from google.protobuf import symbol_database as _symbol_database
 from google.protobuf.internal import builder as _builder
+_runtime_version.ValidateProtobufRuntimeVersion(
+    _runtime_version.Domain.PUBLIC,
+    6,
+    30,
+    2,
+    '',
+    'packet.proto'
+)
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
@@ -16,17 +24,17 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0cpacket.proto\x12\x18Google.Protobuf.Protocol\"\t\n\x07\x43_Enter\"?\n\x07S_Enter\x12\x34\n\x06player\x18\x01 \x01(\x0b\x32$.Google.Protobuf.Protocol.PlayerData\"=\n\x05\x43_Log\x12\x34\n\x06player\x18\x01 \x01(\x0b\x32$.Google.Protobuf.Protocol.PlayerData\"\x8f\x06\n\nPlayerData\x12\x10\n\x08playerId\x18\x01 \x01(\t\x12\r\n\x05level\x18\x02 \x01(\x05\x12\x0b\n\x03\x65xp\x18\x03 \x01(\x02\x12\x0c\n\x04posX\x18\x04 \x01(\x02\x12\x0c\n\x04posY\x18\x05 \x01(\x02\x12\x0c\n\x04posZ\x18\x06 \x01(\x02\x12\x11\n\tmoveSpeed\x18\x07 \x01(\x02\x12\x11\n\tcurrentHp\x18\x08 \x01(\x02\x12\r\n\x05maxHp\x18\t \x01(\x02\x12\x11\n\thealSpeed\x18\n \x01(\x02\x12\x10\n\x08\x61tkPower\x18\x0b \x01(\x02\x12\x10\n\x08\x61tkSpeed\x18\x0c \x01(\x02\x12\x10\n\x08maxSpeed\x18\r \x01(\x02\x12\x16\n\x0e\x63riticalChance\x18\x0e \x01(\x02\x12\x1a\n\x12\x63riticalMultiplier\x18\x0f \x01(\x02\x12\x16\n\x0e\x64\x65\x66\x65nsivePower\x18\x10 \x01(\x02\x12\x10\n\x08\x63ooldown\x18\x11 \x01(\x02\x12\x0e\n\x06magnet\x18\x12 \x01(\x02\x12\x10\n\x08hitCount\x18\x13 \x01(\x05\x12\x18\n\x10totalDamageTaken\x18\x14 \x01(\x02\x12\x13\n\x0btotalDamage\x18\x15 \x01(\x02\x12\x13\n\x0bnumMonsters\x18\x16 \x01(\x05\x12\x14\n\x0cnearMonsters\x18\x17 \x01(\x05\x12\x14\n\x0ckillMonsters\x18\x18 \x01(\x05\x12\x0b\n\x03kpm\x18\x19 \x01(\x02\x12\x13\n\x0busedHPitems\x18\x1a \x01(\x05\x12\x14\n\x0c\x64\x65letedItems\x18\x1b \x01(\x05\x12\x15\n\rnumEquipments\x18\x1c \x01(\x05\x12\x14\n\x0cnumOrnaments\x18\x1d \x01(\x05\x12>\n\requipmentSlot\x18\x1e \x03(\x0b\x32\'.Google.Protobuf.Protocol.EquipmentSlot\x12<\n\x0cornamentSlot\x18\x1f \x03(\x0b\x32&.Google.Protobuf.Protocol.OrnamentSlot\x12\r\n\x05score\x18  \x01(\x02\x12\x14\n\x0csurvivalTime\x18! \x01(\x02\x12\x10\n\x08soulCont\x18\" \x01(\x05\x12\x10\n\x08keyCount\x18# \x01(\x05\x12\x0f\n\x07IsAlive\x18$ \x01(\x08\"\"\n\rEquipmentSlot\x12\x11\n\tequipment\x18\x01 \x01(\x05\" \n\x0cOrnamentSlot\x12\x10\n\x08ornament\x18\x01 \x01(\x05\"\n\n\x08S_Result\"\x1f\n\nPingPacket\x12\x11\n\ttimestamp\x18\x01 \x01(\x04\"8\n\nPongPacket\x12\x11\n\ttimestamp\x18\x01 \x01(\x04\x12\x17\n\x0fserverTimestamp\x18\x02 \x01(\x04\"\xd8\x01\n\rRequestPacket\x12\x13\n\x0bpayloadType\x18\x01 \x01(\r\x12\x33\n\x06\x63\x45nter\x18\x02 \x01(\x0b\x32!.Google.Protobuf.Protocol.C_EnterH\x00\x12/\n\x04\x63Log\x18\x03 \x01(\x0b\x32\x1f.Google.Protobuf.Protocol.C_LogH\x00\x12\x41\n\rcQuestRequest\x18\x04 \x01(\x0b\x32(.Google.Protobuf.Protocol.C_QuestRequestH\x00\x42\t\n\x07payload\"\x93\x02\n\x0eResponsePacket\x12\x0c\n\x04\x63ode\x18\x01 \x01(\r\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\x12\x13\n\x0bpayloadType\x18\x04 \x01(\r\x12\x33\n\x06sEnter\x18\x05 \x01(\x0b\x32!.Google.Protobuf.Protocol.S_EnterH\x00\x12\x35\n\x07sResult\x18\x06 \x01(\x0b\x32\".Google.Protobuf.Protocol.S_ResultH\x00\x12\x43\n\x0esQuestResponse\x18\x07 \x01(\x0b\x32).Google.Protobuf.Protocol.S_QuestResponseH\x00\x42\t\n\x07payload\"F\n\x0e\x43_QuestRequest\x12\x34\n\x06player\x18\x01 \x01(\x0b\x32$.Google.Protobuf.Protocol.PlayerData\"$\n\x0fS_QuestResponse\x12\x11\n\tquestText\x18\x01 \x01(\t*O\n\x08PacketId\x12\x14\n\x10UNDEFINED_PACKET\x10\x00\x12\x08\n\x04PING\x10\x01\x12\x08\n\x04PONG\x10\x02\x12\x0b\n\x07REQUEST\x10\x03\x12\x0c\n\x08RESPONSE\x10\x04*|\n\x05MsgId\x12\x15\n\x11UNDEFINED_PAYLOAD\x10\x00\x12\x0b\n\x07\x43_ENTER\x10\x01\x12\x0b\n\x07S_ENTER\x10\x02\x12\t\n\x05\x43_LOG\x10\x03\x12\x0c\n\x08S_RESULT\x10\x04\x12\x13\n\x0f\x43_QUEST_REQUEST\x10\x05\x12\x14\n\x10S_QUEST_RESPONSE\x10\x06\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0cpacket.proto\x12\x18Google.Protobuf.Protocol\"\t\n\x07\x43_Enter\"?\n\x07S_Enter\x12\x34\n\x06player\x18\x01 \x01(\x0b\x32$.Google.Protobuf.Protocol.PlayerData\"=\n\x05\x43_Log\x12\x34\n\x06player\x18\x01 \x01(\x0b\x32$.Google.Protobuf.Protocol.PlayerData\"\x8f\x06\n\nPlayerData\x12\x10\n\x08playerId\x18\x01 \x01(\t\x12\r\n\x05level\x18\x02 \x01(\x05\x12\x0b\n\x03\x65xp\x18\x03 \x01(\x02\x12\x0c\n\x04posX\x18\x04 \x01(\x02\x12\x0c\n\x04posY\x18\x05 \x01(\x02\x12\x0c\n\x04posZ\x18\x06 \x01(\x02\x12\x11\n\tmoveSpeed\x18\x07 \x01(\x02\x12\x11\n\tcurrentHp\x18\x08 \x01(\x02\x12\r\n\x05maxHp\x18\t \x01(\x02\x12\x11\n\thealSpeed\x18\n \x01(\x02\x12\x10\n\x08\x61tkPower\x18\x0b \x01(\x02\x12\x10\n\x08\x61tkSpeed\x18\x0c \x01(\x02\x12\x10\n\x08maxSpeed\x18\r \x01(\x02\x12\x16\n\x0e\x63riticalChance\x18\x0e \x01(\x02\x12\x1a\n\x12\x63riticalMultiplier\x18\x0f \x01(\x02\x12\x16\n\x0e\x64\x65\x66\x65nsivePower\x18\x10 \x01(\x02\x12\x10\n\x08\x63ooldown\x18\x11 \x01(\x02\x12\x0e\n\x06magnet\x18\x12 \x01(\x02\x12\x10\n\x08hitCount\x18\x13 \x01(\x05\x12\x18\n\x10totalDamageTaken\x18\x14 \x01(\x02\x12\x13\n\x0btotalDamage\x18\x15 \x01(\x02\x12\x13\n\x0bnumMonsters\x18\x16 \x01(\x05\x12\x14\n\x0cnearMonsters\x18\x17 \x01(\x05\x12\x14\n\x0ckillMonsters\x18\x18 \x01(\x05\x12\x0b\n\x03kpm\x18\x19 \x01(\x02\x12\x13\n\x0busedHPitems\x18\x1a \x01(\x05\x12\x14\n\x0c\x64\x65letedItems\x18\x1b \x01(\x05\x12\x15\n\rnumEquipments\x18\x1c \x01(\x05\x12\x14\n\x0cnumOrnaments\x18\x1d \x01(\x05\x12>\n\requipmentSlot\x18\x1e \x03(\x0b\x32\'.Google.Protobuf.Protocol.EquipmentSlot\x12<\n\x0cornamentSlot\x18\x1f \x03(\x0b\x32&.Google.Protobuf.Protocol.OrnamentSlot\x12\r\n\x05score\x18  \x01(\x02\x12\x14\n\x0csurvivalTime\x18! \x01(\x02\x12\x10\n\x08soulCont\x18\" \x01(\x05\x12\x10\n\x08keyCount\x18# \x01(\x05\x12\x0f\n\x07IsAlive\x18$ \x01(\x08\"\"\n\rEquipmentSlot\x12\x11\n\tequipment\x18\x01 \x01(\x05\" \n\x0cOrnamentSlot\x12\x10\n\x08ornament\x18\x01 \x01(\x05\"A\n\x08S_Result\x12\x35\n\x07support\x18\x01 \x01(\x0b\x32$.Google.Protobuf.Protocol.Supporting\"\x95\x03\n\nSupporting\x12\x15\n\rshield_active\x18\x01 \x01(\x02\x12\x15\n\rinvincibility\x18\x02 \x01(\x05\x12\x11\n\tboss_buff\x18\x03 \x01(\x08\x12\x10\n\x08hp_guard\x18\x04 \x01(\x08\x12\x15\n\rperiodic_heal\x18\x05 \x01(\x02\x12\x10\n\x08speed_up\x18\x06 \x01(\x02\x12\x17\n\x0f\x61ttack_speed_up\x18\x07 \x01(\x02\x12\x11\n\tattack_up\x18\x08 \x01(\x02\x12\x12\n\ndefense_up\x18\t \x01(\x05\x12\x1a\n\x12\x63ooldown_reduction\x18\n \x01(\x02\x12\x14\n\x0c\x62\x65rserk_mode\x18\x0b \x01(\x02\x12\x12\n\ncrit_boost\x18\x0c \x01(\x02\x12\x10\n\x08xp_boost\x18\r \x01(\x02\x12\x37\n\tarea_slow\x18\x0e \x01(\x0b\x32$.Google.Protobuf.Protocol.AreaEffect\x12:\n\x0c\x61rea_protect\x18\x0f \x01(\x0b\x32$.Google.Protobuf.Protocol.AreaEffect\"*\n\nAreaEffect\x12\r\n\x05range\x18\x01 \x01(\x02\x12\r\n\x05value\x18\x02 \x01(\x02\"\x1f\n\nPingPacket\x12\x11\n\ttimestamp\x18\x01 \x01(\x04\"8\n\nPongPacket\x12\x11\n\ttimestamp\x18\x01 \x01(\x04\x12\x17\n\x0fserverTimestamp\x18\x02 \x01(\x04\"\xd8\x01\n\rRequestPacket\x12\x13\n\x0bpayloadType\x18\x01 \x01(\r\x12\x33\n\x06\x63\x45nter\x18\x02 \x01(\x0b\x32!.Google.Protobuf.Protocol.C_EnterH\x00\x12/\n\x04\x63Log\x18\x03 \x01(\x0b\x32\x1f.Google.Protobuf.Protocol.C_LogH\x00\x12\x41\n\rcQuestRequest\x18\x04 \x01(\x0b\x32(.Google.Protobuf.Protocol.C_QuestRequestH\x00\x42\t\n\x07payload\"\x93\x02\n\x0eResponsePacket\x12\x0c\n\x04\x63ode\x18\x01 \x01(\r\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\x12\x13\n\x0bpayloadType\x18\x04 \x01(\r\x12\x33\n\x06sEnter\x18\x05 \x01(\x0b\x32!.Google.Protobuf.Protocol.S_EnterH\x00\x12\x35\n\x07sResult\x18\x06 \x01(\x0b\x32\".Google.Protobuf.Protocol.S_ResultH\x00\x12\x43\n\x0esQuestResponse\x18\x07 \x01(\x0b\x32).Google.Protobuf.Protocol.S_QuestResponseH\x00\x42\t\n\x07payload\"F\n\x0e\x43_QuestRequest\x12\x34\n\x06player\x18\x01 \x01(\x0b\x32$.Google.Protobuf.Protocol.PlayerData\"$\n\x0fS_QuestResponse\x12\x11\n\tquestText\x18\x01 \x01(\t*O\n\x08PacketId\x12\x14\n\x10UNDEFINED_PACKET\x10\x00\x12\x08\n\x04PING\x10\x01\x12\x08\n\x04PONG\x10\x02\x12\x0b\n\x07REQUEST\x10\x03\x12\x0c\n\x08RESPONSE\x10\x04*|\n\x05MsgId\x12\x15\n\x11UNDEFINED_PAYLOAD\x10\x00\x12\x0b\n\x07\x43_ENTER\x10\x01\x12\x0b\n\x07S_ENTER\x10\x02\x12\t\n\x05\x43_LOG\x10\x03\x12\x0c\n\x08S_RESULT\x10\x04\x12\x13\n\x0f\x43_QUEST_REQUEST\x10\x05\x12\x14\n\x10S_QUEST_RESPONSE\x10\x06\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'packet_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_PACKETID']._serialized_start=1747
-  _globals['_PACKETID']._serialized_end=1826
-  _globals['_MSGID']._serialized_start=1828
-  _globals['_MSGID']._serialized_end=1952
+  _globals['_PACKETID']._serialized_start=2254
+  _globals['_PACKETID']._serialized_end=2333
+  _globals['_MSGID']._serialized_start=2335
+  _globals['_MSGID']._serialized_end=2459
   _globals['_C_ENTER']._serialized_start=42
   _globals['_C_ENTER']._serialized_end=51
   _globals['_S_ENTER']._serialized_start=53
@@ -40,17 +48,21 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_ORNAMENTSLOT']._serialized_start=1003
   _globals['_ORNAMENTSLOT']._serialized_end=1035
   _globals['_S_RESULT']._serialized_start=1037
-  _globals['_S_RESULT']._serialized_end=1047
-  _globals['_PINGPACKET']._serialized_start=1049
-  _globals['_PINGPACKET']._serialized_end=1080
-  _globals['_PONGPACKET']._serialized_start=1082
-  _globals['_PONGPACKET']._serialized_end=1138
-  _globals['_REQUESTPACKET']._serialized_start=1141
-  _globals['_REQUESTPACKET']._serialized_end=1357
-  _globals['_RESPONSEPACKET']._serialized_start=1360
-  _globals['_RESPONSEPACKET']._serialized_end=1635
-  _globals['_C_QUESTREQUEST']._serialized_start=1637
-  _globals['_C_QUESTREQUEST']._serialized_end=1707
-  _globals['_S_QUESTRESPONSE']._serialized_start=1709
-  _globals['_S_QUESTRESPONSE']._serialized_end=1745
+  _globals['_S_RESULT']._serialized_end=1102
+  _globals['_SUPPORTING']._serialized_start=1105
+  _globals['_SUPPORTING']._serialized_end=1510
+  _globals['_AREAEFFECT']._serialized_start=1512
+  _globals['_AREAEFFECT']._serialized_end=1554
+  _globals['_PINGPACKET']._serialized_start=1556
+  _globals['_PINGPACKET']._serialized_end=1587
+  _globals['_PONGPACKET']._serialized_start=1589
+  _globals['_PONGPACKET']._serialized_end=1645
+  _globals['_REQUESTPACKET']._serialized_start=1648
+  _globals['_REQUESTPACKET']._serialized_end=1864
+  _globals['_RESPONSEPACKET']._serialized_start=1867
+  _globals['_RESPONSEPACKET']._serialized_end=2142
+  _globals['_C_QUESTREQUEST']._serialized_start=2144
+  _globals['_C_QUESTREQUEST']._serialized_end=2214
+  _globals['_S_QUESTRESPONSE']._serialized_start=2216
+  _globals['_S_QUESTRESPONSE']._serialized_end=2252
 # @@protoc_insertion_point(module_scope)
