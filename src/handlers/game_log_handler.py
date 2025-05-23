@@ -50,8 +50,8 @@ async def game_log_handler(context):
         print(f"게임 로그 Redis에 저장 완료: {data_dict}\n")
 
         # ✅ AI 분석 로직 자리 (예시)
-        # logs = await GameRedis.get_recent_logs(account_id) // Redis에서 로그 가져오는 코드
-        # ai_result = await run_ai(logs)
+        logs = await GameRedis.get_filtered_logs(account_id) # Redis에서 로그 가져오는 코드
+        print(f"최근 로그: {logs}\n")
 
         # 테스트용 더미 AI 결과
         ai_result = {
