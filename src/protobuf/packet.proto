@@ -91,21 +91,30 @@ message S_Result {
 }
 
 message Supporting {
-  float shield_active = 1; 
-  int32 invincibility = 2;
-  bool boss_buff = 3;
-  bool hp_guard = 4;
-  float periodic_heal = 5;
-  float speed_up = 6;
-  float attack_speed_up = 7;
-  float attack_up = 8;
-  int32 defense_up = 9;
-  float cooldown_reduction = 10;
-  float berserk_mode = 11;
-  float crit_boost = 12;
-  float xp_boost = 13;
-  float area_slow = 14;
-  float area_protect = 15;
+  SupportEffect shield_active = 1;
+  SupportEffect invincibility = 2;
+  SupportEffect boss_buff = 3;
+  SupportEffect hp_guard = 4;
+  SupportEffect periodic_heal = 5;
+  SupportEffect speed_up = 6;
+  SupportEffect attack_speed_up = 7;
+  SupportEffect attack_up = 8;
+  SupportEffect defense_up = 9;
+  SupportEffect cooldown_reduction = 10;
+  SupportEffect berserk_mode = 11;
+  SupportEffect crit_boost = 12;
+  SupportEffect xp_boost = 13;
+  SupportEffect area_slow = 14;
+  SupportEffect area_protect = 15;
+}
+
+message SupportEffect {
+  oneof effect_value {
+    float float_value = 1;
+    int32 int_value = 2;
+    bool bool_value = 3;
+  }
+  float duration = 4;  // 공통 지속 시간 (초)
 }
 
 message PingPacket {

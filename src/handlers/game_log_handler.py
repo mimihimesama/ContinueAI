@@ -7,19 +7,33 @@ from google.protobuf.json_format import MessageToDict
 
 def build_support_payload(ai_result: dict) -> dict:
     """
-    AI 결과에서 의미 있는 support 효과만 추출하여 payload 형식으로 구성
-    (area_slow, area_protect도 단순 float로 처리)
+    AI 결과를 oneof + duration 구조에 맞춰 payload로 구성
     """
     support_payload = {}
 
-    for key, value in ai_result.items():
-        if value is None:
+    for key, effect in ai_result.items():
+        if not isinstance(effect, dict):
             continue
 
-        if isinstance(value, (int, float)) and value == 0:
-            continue
+        duration = effect.get("duration", 0.0)
 
-        support_payload[key] = value
+        # oneof 값 중 하나만 선택
+        if "float_value" in effect and effect["float_value"] not in (None, 0):
+            support_payload[key] = {
+                "float_value": effect["float_value"],
+                "duration": duration
+            }
+        elif "int_value" in effect and effect["int_value"] not in (None, 0):
+            support_payload[key] = {
+                "int_value": effect["int_value"],
+                "duration": duration
+            }
+        elif "bool_value" in effect:
+            if effect["bool_value"]:  # True인 경우만 전송
+                support_payload[key] = {
+                    "bool_value": True,
+                    "duration": duration
+                }
 
     return {"support": support_payload}
 
@@ -41,11 +55,9 @@ async def game_log_handler(context):
 
         # 테스트용 더미 AI 결과
         ai_result = {
-            "shield_active": 1.0,
-            "speed_up": 2.5,
-            "area_slow": 0.7,
-            "crit_boost": None,
-            "cooldown_reduction": 0
+            "shield_active": {"float_value": 1.0, "duration": 5.0},
+            "invincibility": {"int_value": 1, "duration": 3.0},
+            "boss_buff": {"bool_value": True, "duration": 10.0},
         }
 
         payload = build_support_payload(ai_result)
