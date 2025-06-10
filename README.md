@@ -21,13 +21,13 @@
 
 ## ⚙️ 기술 스택
 
-<img src="https://img.shields.io/badge/unity-FFFFFF?style=for-the-badge&logo=unity&logoColor=black">
+<img src="https://img.shields.io/badge/unity-black?style=for-the-badge&logo=unity&logoColor=white">
 
-<img src="https://img.shields.io/badge/python-white?style=for-the-badge&logo=python&logoColor=3776AB">
+<img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">
 
-<img src="https://img.shields.io/badge/redis-black?style=for-the-badge&logo=redis&badgeColor=010101">
+<img src="https://img.shields.io/badge/redis-010101?style=for-the-badge&logo=redis&badgeColor=white">
 
-<img src="https://img.shields.io/badge/scikitlearn-000000?style=for-the-badge&logo=scikitlearn&logoColor=F7931E">
+<img src="https://img.shields.io/badge/scikitlearn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white">
 
 <img src="https://img.shields.io/badge/ollama-000000?style=for-the-badge&logo=ollama&logoColor=white">
 
